@@ -1,0 +1,58 @@
+{% load triviabackend_extras %}
+{% if question %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Trivia</title>
+        <style>
+            #hiddenText {
+                display: none; /* Initially hide the text */
+                margin-top: 10px;
+            }
+            button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            function toggleText() {
+                const textElement = document.getElementById("hiddenText");
+                const currentDisplay = window.getComputedStyle(textElement).display;
+                if (currentDisplay === "none") {
+                    textElement.style.display = "block";
+                } else {
+                    textElement.style.display = "none";
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+        <h1>Trivia #{{ question.id }}</h1>
+        <p>Question: {{ question.question_text }}</p>
+        <button onclick="toggleText()">Reveal Answer</button>
+        <div id="hiddenText">
+            <p>Answer: {{ question.answer_text }}</p>
+        </div>
+        <div>
+            <a href="/triviabackend/{{ question.id|increment:1 }}/"> Next Question </a>
+        </div>
+    </body>
+    </html>
+{% else %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>No Question</title>
+    </head>
+    <body>
+        <p>Question does not exist.</p>
+    </body>
+    </html>
+{% endif %}

@@ -1,0 +1,28 @@
+sudo apt install postgresql
+
+sudo -u postgres psql # psql uses peer authentication for connections from local machine. If a psql user matches the current operating system user then it can login with no further authentication
+
+# psql commands
+
+# create DB
+
+"CREATE DATABASE trivia; \
+\c trivia; \
+CREATE ROLE trivia WITH LOGIN PASSWORD 'pa55word';
+GRANT ALL PRIVILEGES ON DATABASE trivia to trivia;
+GRANT ALL ON SCHEMA public to trivia;
+exit;
+" 
+
+# Connect as new user
+
+"
+psql --host=localhost --dbname=trivia --username=trivia 
+"
+
+python ./Format_Data.py
+
+# copy data into postgres
+"
+\copy triviabackend_triviaquestion(question_text,answer_text) from '/home/tom/Projects/TriviaSite/updated_file.csv' DELIMITER ',' csv
+"
