@@ -31,7 +31,6 @@
         </script>
     </head>
     <body>
-
         <h1>Trivia #{{ question.id }}</h1>
         <p>Question: {{ question.question_text }}</p>
         <button onclick="toggleText()">Reveal Answer</button>
@@ -39,7 +38,13 @@
             <p>Answer: {{ question.answer_text }}</p>
         </div>
         <div>
-            <a href="/triviabackend/{{ question.id|increment:1 }}/"> Next Question </a>
+            <a href="/triviabackend/question/{{ question.id|increment:1 }}/"> Next Question </a>
+        </div>
+        <div>
+            <a href="/triviabackend/random/"> Random Question </a>
+        </div>
+        <div>
+            Questions Attempted: {{ stats.attempted }} Successful: {{ stats.successful }}
         </div>
     </body>
     </html>

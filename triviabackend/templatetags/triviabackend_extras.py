@@ -1,4 +1,5 @@
 from django import template
+from random import randrange
 
 register = template.Library()
 
