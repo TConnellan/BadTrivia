@@ -11,6 +11,11 @@
                 display: none; /* Initially hide the text */
                 margin-top: 10px;
             }
+            #hiddenButtons {
+                /* display: none; Initially hide the text */
+                display: none;
+                margin-top: 10px;
+            }
             button {
                 margin-top: 20px;
                 padding: 10px 20px;
@@ -29,19 +34,30 @@
                 }
             }
         </script>
+        <script>
+            function toggleNext() {
+                const nextQuestionButtonsElement = document.getElementById("hiddenButtons");
+                const currentDisplay = window.getComputedStyle(nextQuestionButtonsElement).display;
+                if (currentDisplay === "none") {
+                    textElement.style.display = "block";
+                } else {
+                    textElement.style.display = "none";
+                }
+            }
+        </script>
     </head>
     <body>
         <h1>Trivia #{{ question.id }}</h1>
         <p>Question: {{ question.question_text }}</p>
-        <button onclick="toggleText()">Reveal Answer</button>
+        <button onclick="toggleText();toggleNext()">Reveal Answer</button>
         <div id="hiddenText">
             <p>Answer: {{ question.answer_text }}</p>
-        </div>
-        <div>
-            <a href="/triviabackend/question/{{ question.id|increment:1 }}/"> Next Question </a>
-        </div>
-        <div>
-            <a href="/triviabackend/random/"> Random Question </a>
+            <div>
+                <a href="/triviabackend/question/{{ question.id|increment:1 }}/"> Next Question </a>
+            </div>
+            <div>
+                <a href="/triviabackend/random/"> Random Question </a>
+            </div>
         </div>
         <div>
             Questions Attempted: {{ stats.attempted }} Successful: {{ stats.successful }}
